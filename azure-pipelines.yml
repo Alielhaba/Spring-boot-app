@@ -13,7 +13,7 @@ stages:
     steps:
     - script: |
         docker login -u $(DOCKER_ID) -p $(DOCKER_PASS)
-        docker build -t Ali3Elhabal/sprint-boot:$(Build.BuildId) .
-        docker push Ali3Elhabal/sprint-boot:$(Build.BuildId)
-        docker tag Ali3Elhabal/sprint-boot:$(Build.BuildId) Ali3Elhabal/sprint-boot:latest
-        docker push Ali3Elhabal/sprint-boot:latest
+        docker build -t alielhabal70/sprint-boot:$(Build.BuildId) .
+        docker push alielhabal70/sprint-boot:$(Build.BuildId)
+        docker tag alielhabal70/sprint-boot:$(Build.BuildId) Ali3Elhabal/sprint-boot:latest
+        docker push alielhabal70/sprint-boot:latest
