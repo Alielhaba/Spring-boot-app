@@ -15,5 +15,5 @@ stages:
         docker login -u $(DOCKER_ID) -p $(DOCKER_PASS)
         docker build -t alielhabal70/sprint-boot:$(Build.BuildId) .
         docker push alielhabal70/sprint-boot:$(Build.BuildId)
-        docker tag alielhabal70/sprint-boot:$(Build.BuildId) Ali3Elhabal/sprint-boot:latest
+        docker tag alielhabal70/sprint-boot:$(Build.BuildId) alielhabal70/sprint-boot:latest
         docker push alielhabal70/sprint-boot:latest
