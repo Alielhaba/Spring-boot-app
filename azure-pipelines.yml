@@ -5,6 +5,49 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
+
+- stage: Lint
+  jobs:
+  - job: LintStage
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - script: |
+        echo"Linting"
+
+- stage: Unit Test
+  jobs:
+  - job: UnitTest
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - script: |
+        ./gradlew test
+
+- stage: SonarQube
+  jobs:
+  - job: SonarQube
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - script: |
+        echo"SonarQube"
+
+
+- stage: BuildDockerImage
+  jobs:
+  - job: BuildPushImage
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - script: |
+        docker login -u $(DOCKER_ID) -p $(DOCKER_PASS)
+        docker build -t Ali3Elhabal/sprint-boot:$(Build.BuildId) .
+        docker push Ali3Elhabal/sprint-boot:$(Build.BuildId)
+        docker tag Ali3Elhabal/sprint-boot:$(Build.BuildId) Ali3Elhabal/sprint-boot:latest
+        docker push Ali3Elhabal/sprint-boot:latest
+
+
 - stage: BuildDockerImage
   jobs:
   - job: BuildPushImage
