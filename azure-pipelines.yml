@@ -25,6 +25,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - script: |
+        chmod +x ./gradlew  
         ./gradlew test
 
 - stage: SonarQube
