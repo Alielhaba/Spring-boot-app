@@ -5,7 +5,7 @@ trigger:
     - dev
 
 pool:
-  vmImage: ubuntu-latest
+  name: spring-boot
 
 stages:
 
@@ -13,7 +13,7 @@ stages:
   jobs:
   - job: LintStage
     pool:
-      vmImage: ubuntu-latest
+      name: spring-boot
     steps:
     - script: |
         echo "Linting"
@@ -22,7 +22,7 @@ stages:
   jobs:
   - job: UnitTest
     pool:
-      vmImage: ubuntu-latest
+      name: 'spring-boot'
     steps:
     - script: |
         chmod +x ./gradlew  
@@ -32,7 +32,7 @@ stages:
   jobs:
   - job: SonarQube
     pool:
-      vmImage: ubuntu-latest
+      name: 'spring-boot'
     steps:
     - script: |
         echo "Sonarqube"
@@ -41,7 +41,7 @@ stages:
   jobs:
   - job: BuildPushImage
     pool:
-      vmImage: ubuntu-latest
+      name: 'spring-boot'
     steps:
     - script: |
         docker login -u $(DOCKER_ID) -p $(DOCKER_PASS)
@@ -58,7 +58,7 @@ stages:
 
     displayName: 'Deploy to Development'
     pool:
-      vmImage: 'ubuntu-latest'
+      name: 'spring-boot'
     steps:
     - script: |
         echo "Configure AWS credentials for Development"
@@ -80,7 +80,7 @@ stages:
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main')) 
     displayName: 'Deploy to Production'
     pool:
-      vmImage: 'ubuntu-latest'
+      name: 'spring-boot'
     steps:
     - script: |
         echo "Configure AWS credentials for Production"
