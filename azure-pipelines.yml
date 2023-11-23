@@ -18,7 +18,7 @@ stages:
     - script: |
         echo"Linting"
 
-- stage: Unit Test
+- stage: Unit_Test
   jobs:
   - job: UnitTest
     pool:
@@ -49,7 +49,7 @@ stages:
         docker tag alielhabal70/sprint-boot:$(Build.BuildId) alielhabal70/sprint-boot:latest
         docker push alielhabal70/sprint-boot:latest
 
-- stage: Deploy
+- stage: Deploy_dev
   displayName: 'Deploy Stage'
   jobs:  
   - job: DeployToDev
@@ -71,7 +71,7 @@ stages:
         kubectl apply -f spring-service.yml --namespace=dev
       displayName: 'Deploy to Development EKS'
 
-- stage: Deploy
+- stage: Deploy_prod
   displayName: 'Deploy Production'
   jobs:
   - job: DeployToProd
