@@ -38,5 +38,25 @@ module "subnet_2" {
 }
 
 # =================== EC2 module =====================
+module "ec2_public" {
+  source = "./ec2-public"
+  instance_type = "t2.medium"
+  associate_public_ip_address = "true"
+  subnetID = module.subnet.subnet_id
+  secGroupId = [module.security_group_public.security_group_id]
+  public_ec2 = "Managment instance"
+  userData = file("userData.tpl")
 
+}
+
+
+# =================== security group module =====================
+module "security_group_public" {
+    source = "./security-group-public"
+    Name_security_group = "security_group"
+    Ports_security_group = [ 22 , 0 , 8080 ]
+    Protocol_security_group = ["tcp" , "-1"] 
+    cidr_security_group = "0.0.0.0/0"
+    vpcID = module.vpc.vpc-id
+}
 
