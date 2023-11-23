@@ -37,21 +37,28 @@ docker run -d -p 8080:8080 spring-boot
        - terraform plan
        - terraform apply
 
-
+------------------------------------------------------------------------------------------------------------------------------------------
 
 ```
 terraform init
 ```
-![Screenshot from 2023-11-19 16-55-23](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/5d39e168-1574-468a-92ae-d5bd84477e57)
+![Screenshot from 2023-11-23 13-02-39](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/8205da77-5870-41ca-b041-311eed5f2a03)
 
 
+------------------------------------------------------------------------------------------------------------------------------------------
 ```
 terraform plan
 ```
+![Screenshot from 2023-11-23 14-57-49](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/8c38607e-a767-46b7-82a8-e4bf32529c91)
+
+------------------------------------------------------------------------------------------------------------------------------------------
 
 ```
 terraform apply
 ```
+![Screenshot from 2023-11-23 15-17-59](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/947404bf-8e75-4d7d-ae7a-c7b346d5ff21)
+
+![Screenshot from 2023-11-23 15-18-36](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/6a428d92-479f-4728-af33-f9e8581ca0b0)
 
 
 
