@@ -5,7 +5,7 @@ trigger:
     - dev
 
 pool:
-  name: spring-boot
+  name: 'Spring-boot-self-host'
 
 stages:
 
@@ -13,7 +13,7 @@ stages:
   jobs:
   - job: LintStage
     pool:
-      name: spring-boot
+      name: 'Spring-boot-self-host'
     steps:
     - script: |
         echo "Linting"
