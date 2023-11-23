@@ -60,6 +60,21 @@ terraform apply
 
 ![Screenshot from 2023-11-23 15-18-36](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/6a428d92-479f-4728-af33-f9e8581ca0b0)
 
+## Managment instance With Cluster nodes 
+
+![Screenshot from 2023-11-23 16-36-49](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/f24aee12-3836-4974-935c-da6cd5d32d9d)
+
+## The EKS Cluster 
+
+![Screenshot from 2023-11-23 16-38-12](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/5c66cb6b-61ac-4f17-972d-20542d246343)
+
+## Roles 
+
+![Screenshot from 2023-11-23 16-38-40](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/3b007c81-8ed9-49a4-a154-8f41bc90e4eb)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+### Azure Devopse Pipeline setup 
 
 
 
