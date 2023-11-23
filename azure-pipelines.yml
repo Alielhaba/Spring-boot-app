@@ -70,6 +70,7 @@ stages:
 
         kubectl apply -f spring-boot-Deployment.yml --namespace=dev  
         kubectl apply -f spring-service.yml --namespace=dev
+        kubectl apply -f service-ingress.yml --namespace=dev
       displayName: 'Deploy to Development EKS'
 
 - stage: Deploy_prod
@@ -90,4 +91,5 @@ stages:
 
         kubectl apply -f spring-boot-Deployment.yml --namespace=prod  
         kubectl apply -f spring-service.yml --namespace=prod
+        kubectl apply -f service-ingress.yml --namespace=prod
       displayName: 'Deploy to Production EKS'
