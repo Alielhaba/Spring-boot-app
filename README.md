@@ -74,9 +74,9 @@ terraform apply
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 ## To Create Ingress for the app.
-# first Connect to the Management instance 
-# Second Connect to EKS Cluster 
-# Third Install the NGINX Ingress controller
+### first Connect to the Management instance 
+### Second Connect to EKS Cluster 
+### Third Install the NGINX Ingress controller
 
 
 ## Connect to the Management instance
