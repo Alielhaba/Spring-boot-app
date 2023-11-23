@@ -1,10 +1,41 @@
 trigger:
-  - dev
+  branches:
+    include:
+    - main
+    - dev
 
 pool:
   vmImage: ubuntu-latest
 
 stages:
+
+- stage: Lint
+  jobs:
+  - job: LintStage
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - script: |
+        echo"Linting"
+
+- stage: Unit Test
+  jobs:
+  - job: UnitTest
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - script: |
+        ./gradlew test
+
+- stage: SonarQube
+  jobs:
+  - job: SonarQube
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - script: |
+        echo"Sonarqube"
+
 - stage: BuildDockerImage
   jobs:
   - job: BuildPushImage
@@ -17,3 +48,45 @@ stages:
         docker push alielhabal70/sprint-boot:$(Build.BuildId)
         docker tag alielhabal70/sprint-boot:$(Build.BuildId) alielhabal70/sprint-boot:latest
         docker push alielhabal70/sprint-boot:latest
+
+- stage: Deploy
+  displayName: 'Deploy Stage'
+  jobs:  
+  - job: DeployToDev
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev')) 
+
+    displayName: 'Deploy to Development'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - script: |
+        echo "Configure AWS credentials for Development"
+        aws configure set aws_access_key_id $(AWS_ACCESS_KEY_ID)
+        aws configure set aws_secret_access_key $(AWS_SECRET_ACCESS_KEY)
+        aws configure set region us-east-1
+        aws eks --region us-east-1 update-kubeconfig --name Spring-boot-cluster  
+
+
+        kubectl apply -f spring-boot-Deployment.yml --namespace=dev  
+        kubectl apply -f spring-service.yml --namespace=dev
+      displayName: 'Deploy to Development EKS'
+
+- stage: Deploy
+  displayName: 'Deploy Production'
+  jobs:
+  - job: DeployToProd
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main')) 
+    displayName: 'Deploy to Production'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - script: |
+        echo "Configure AWS credentials for Production"
+        aws configure set aws_access_key_id $(AWS_ACCESS_KEY_ID)
+        aws configure set aws_secret_access_key $(AWS_SECRET_ACCESS_KEY)
+        aws configure set region us-east-1
+        aws eks --region us-east-1 update-kubeconfig --name Spring-boot-cluster  
+
+        kubectl apply -f spring-boot-Deployment.yml --namespace=prod  
+        kubectl apply -f spring-service.yml --namespace=prod
+      displayName: 'Deploy to Production EKS'
