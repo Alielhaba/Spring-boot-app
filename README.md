@@ -73,8 +73,40 @@ terraform apply
 ![Screenshot from 2023-11-23 16-38-40](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/3b007c81-8ed9-49a4-a154-8f41bc90e4eb)
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
+## To Create Ingress for the app.
+# first Connect to the Management instance 
+# Second Connect to EKS Cluster 
+# Third Install the NGINX Ingress controller
+
+
+## Connect to the Management instance
+
+```
+ssh -i "ec2_key.pem" ubuntu@ ( Instance Public IP )
+```
+
+## Second Connect to EKS Cluster
+
+```
+aws eks update-kubeconfig --region us-east-1 --name Spring-boot-cluster
+```
+
+![Screenshot from 2023-11-23 19-04-58](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/0c379a52-db7c-4abe-9027-f99ce703cc8b)
+
+
+## Install the NGINX Ingress controller
+
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/cloud/deploy.yaml
+```
+
+![Screenshot from 2023-11-23 19-04-22](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/05956be9-2da3-4402-84f2-9e54e4d653ce)
+
+
 
 ### Azure Devopse Pipeline setup 
+
+
 
 
 
