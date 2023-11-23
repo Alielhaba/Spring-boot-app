@@ -16,7 +16,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - script: |
-        echo"Linting"
+        echo "Linting"
 
 - stage: Unit_Test
   jobs:
@@ -34,7 +34,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - script: |
-        echo"Sonarqube"
+        echo "Sonarqube"
 
 - stage: BuildDockerImage
   jobs:
