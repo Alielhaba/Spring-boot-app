@@ -22,7 +22,7 @@ stages:
   jobs:
   - job: UnitTest
     pool:
-      name: 'spring-boot'
+      name: 'Spring-boot-self-host'
     steps:
     - script: |
         chmod +x ./gradlew  
@@ -32,7 +32,7 @@ stages:
   jobs:
   - job: SonarQube
     pool:
-      name: 'spring-boot'
+      name: 'Spring-boot-self-host'
     steps:
     - script: |
         echo "Sonarqube"
@@ -41,7 +41,7 @@ stages:
   jobs:
   - job: BuildPushImage
     pool:
-      name: 'spring-boot'
+      name: 'Spring-boot-self-host'
     steps:
     - script: |
         docker login -u $(DOCKER_ID) -p $(DOCKER_PASS)
@@ -58,7 +58,7 @@ stages:
 
     displayName: 'Deploy to Development'
     pool:
-      name: 'spring-boot'
+      name: 'Spring-boot-self-host'
     steps:
     - script: |
         echo "Configure AWS credentials for Development"
@@ -80,7 +80,7 @@ stages:
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main')) 
     displayName: 'Deploy to Production'
     pool:
-      name: 'spring-boot'
+      name: 'Spring-boot-self-host'
     steps:
     - script: |
         echo "Configure AWS credentials for Production"
