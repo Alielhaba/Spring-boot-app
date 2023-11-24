@@ -16,6 +16,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - script: |
+        chmod +x ./gradlew
         ./gradlew check
 
 
