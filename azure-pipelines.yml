@@ -16,7 +16,8 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - script: |
-        echo "Linting"
+        ./gradlew check
+
 
 - stage: Unit_Test
   jobs:
