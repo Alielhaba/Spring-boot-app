@@ -15,7 +15,7 @@ This project shows how to build a Continuous Integration (CI) and Continuous Del
 # Architectural Workflow Diagram
 #### 
 
-![sprint-boot drawio](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/cb75e2c5-e18c-4896-8fb1-6619617c087c)
+![sprint-boot drawio (1)](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/dc8befe7-6960-42de-80b3-33f1eed9abc6)
 
 
 
