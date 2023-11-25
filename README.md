@@ -107,7 +107,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 
 
 
-### Azure Devopse Pipeline setup 
+# Azure Devopse Pipeline setup 
 
 1- Create Azure Devops Account 
 2- Create New Organization
@@ -200,6 +200,8 @@ tar zxvf ~/Downloads/vsts-agent-linux-x64-3.230.0.tar.gz
  - Copy the value of the token and use it in the next step .
 
 ![Screenshot from 2023-11-25 14-40-20](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/661e1931-a4a5-4b2d-8f4d-bef8935a22cd)
+
+![Screenshot from 2023-11-23 19-59-29](https://github.com/Alielhaba/Spring-boot-app/assets/118537759/63193acb-22d9-407f-a9c0-67ca01d49869)
 
 # Now the agent is created but it is offline .
 
