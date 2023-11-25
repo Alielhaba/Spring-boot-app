@@ -1,5 +1,8 @@
 trigger:
-  - dev
+  branches:
+    include:
+    - main
+    - dev
 
 pool:
   vmImage: ubuntu-latest
@@ -13,15 +16,18 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - script: |
-        echo"Linting"
+        chmod +x ./gradlew
+        ./gradlew check
 
-- stage: Unit Test
+
+- stage: Unit_Test
   jobs:
   - job: UnitTest
     pool:
       vmImage: ubuntu-latest
     steps:
     - script: |
+        chmod +x ./gradlew  
         ./gradlew test
 
 - stage: SonarQube
@@ -31,22 +37,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - script: |
-        echo"SonarQube"
-
-
-- stage: BuildDockerImage
-  jobs:
-  - job: BuildPushImage
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - script: |
-        docker login -u $(DOCKER_ID) -p $(DOCKER_PASS)
-        docker build -t Ali3Elhabal/sprint-boot:$(Build.BuildId) .
-        docker push Ali3Elhabal/sprint-boot:$(Build.BuildId)
-        docker tag Ali3Elhabal/sprint-boot:$(Build.BuildId) Ali3Elhabal/sprint-boot:latest
-        docker push Ali3Elhabal/sprint-boot:latest
-
+        echo "Sonarqube"
 
 - stage: BuildDockerImage
   jobs:
@@ -56,8 +47,51 @@ stages:
     steps:
     - script: |
         docker login -u $(DOCKER_ID) -p $(DOCKER_PASS)
-        docker build -t Ali3Elhabal/sprint-boot:$(Build.BuildId) .
-        docker push Ali3Elhabal/sprint-boot:$(Build.BuildId)
-        docker tag Ali3Elhabal/sprint-boot:$(Build.BuildId) Ali3Elhabal/sprint-boot:latest
-        docker push Ali3Elhabal/sprint-boot:latest
+        docker build -t alielhabal70/sprint-boot:$(Build.BuildId) .
+        docker push alielhabal70/sprint-boot:$(Build.BuildId)
+        docker tag alielhabal70/sprint-boot:$(Build.BuildId) alielhabal70/sprint-boot:latest
+        docker push alielhabal70/sprint-boot:latest
 
+- stage: Deploy_dev
+  displayName: 'Deploy Stage'
+  jobs:  
+  - job: DeployToDev
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev')) 
+
+    displayName: 'Deploy to Development'
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - script: |
+        echo "Configure AWS credentials for Development"
+        aws configure set aws_access_key_id $(AWS_ACCESS_KEY_ID)
+        aws configure set aws_secret_access_key $(AWS_SECRET_ACCESS_KEY)
+        aws configure set region us-east-1
+        aws eks --region us-east-1 update-kubeconfig --name Spring-boot-cluster  
+
+
+        kubectl apply -f spring-boot-Deployment.yml --namespace=dev  
+        kubectl apply -f spring-service.yml --namespace=dev
+        kubectl apply -f service-ingress.yml --namespace=dev
+      displayName: 'Deploy to Development EKS'
+
+- stage: Deploy_prod
+  displayName: 'Deploy Production'
+  jobs:
+  - job: DeployToProd
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main')) 
+    displayName: 'Deploy to Production'
+    pool:
+      vmImage: ubuntu-latest    
+    steps:
+    - script: |
+        echo "Configure AWS credentials for Production"
+        aws configure set aws_access_key_id $(AWS_ACCESS_KEY_ID)
+        aws configure set aws_secret_access_key $(AWS_SECRET_ACCESS_KEY)
+        aws configure set region us-east-1
+        aws eks --region us-east-1 update-kubeconfig --name Spring-boot-cluster  
+
+        kubectl apply -f spring-boot-Deployment.yml --namespace=prod  
+        kubectl apply -f spring-service.yml --namespace=prod
+        kubectl apply -f service-ingress.yml --namespace=prod
+      displayName: 'Deploy to Production EKS'
