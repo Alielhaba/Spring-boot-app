@@ -1,4 +1,4 @@
-# $${\color{blue} spring-boot Project }$$
+# $${\color{blue} spring-boot-Project }$$
 
 Building a CI/CD pipeline With Azure Cloud and Github repository, Then deploy the app in EKS Cluster .
 
