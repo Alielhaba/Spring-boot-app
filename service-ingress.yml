@@ -11,7 +11,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /live endpoint(/|$)(.*)
+      - path: /live (/|$)(.*)
         pathType: Prefix
         backend:
           service:
