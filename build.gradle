@@ -1,0 +1,33 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.5'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'java'
+	id 'checkstyle'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+checkstyle {
+    toolVersion = '8.45'  // Specify the Checkstyle version
+    configFile = file('checkstyle/checkstyle.xml')  // Path to your Checkstyle configuration file
+}
+
+gradle.projectsEvaluated {
+    check.dependsOn 'checkstyleMain', 'checkstyleTest'
+}
+
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
